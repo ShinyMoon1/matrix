@@ -11,12 +11,12 @@ public class Matrix
     /// <summary>
     /// Возвращает количество строк матрицы.
     /// </summary>
-    public int Rows { get; }
+    public int Rows { get; private set; }
     
     /// <summary>
     /// Возвращает количество столбцов матрицы.
     /// </summary>
-    public int Cols { get; }
+    public int Cols { get; private set; }
 
     /// <summary>
     /// Конструктор. Создает матрицу заданного размера и заполняет случайными числами от 1 до 99.
@@ -26,6 +26,7 @@ public class Matrix
     /// <exception cref="ArgumentException">Выбрасывается, если rows или cols меньше или равны 0.</exception>
     public Matrix(int rows, int cols)
     {
+        // ИСПРАВЛЕНИЕ BUG-02: добавлена проверка аргументов
         if (rows <= 0 || cols <= 0)
             throw new ArgumentException("Размеры матрицы должны быть положительными числами.");
         
@@ -76,6 +77,7 @@ public class Matrix
     public Matrix Rotate90()
     {
         Matrix result = new Matrix(Cols, Rows);
+        // ИСПРАВЛЕНИЕ BUG-01: исправлена формула индексов
         for (int i = 0; i < Rows; i++)
             for (int j = 0; j < Cols; j++)
                 result._data[j, Rows - 1 - i] = _data[i, j];
@@ -105,6 +107,7 @@ public class Matrix
     /// </summary>
     public void ReverseColumnsOrder()
     {
+        // ИСПРАВЛЕНИЕ BUG-04: добавлена проверка для случая с одним столбцом
         if (Cols == 1) return;
         
         for (int i = 0; i < Rows; i++)
